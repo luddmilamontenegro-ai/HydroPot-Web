@@ -480,15 +480,15 @@ footer p { margin: 5px 0; }
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Asignación de Pines
-const int SENSOR_HUMEDAD_PIN = A0; // Sensor de Humedad (Entrada Analógica)
-const int BOMBA_PIN = 8;           // Bomba de Agua (Salida Digital)
-const int LED_ROJO = 4;            // LED de Indicador de Baja Humedad
-const int LED_UV_PIN = 9;          // Tiras LED Ultra UV (Activación de crecimiento)
+const int SENSOR_HUMEDAD_PIN = A0;
+const int BOMBA_PIN = 8;
+const int LED_ROJO = 4; 
+const int LED_UV_PIN = 9; 
 
-int valorHumedad = 0;              // Valor leído del sensor
-unsigned long ultimoRiegoMillis = 0; // Almacena el tiempo del último riego
-bool estaRegando = false;          // Bandera de estado actual
-
+int valorHumedad = 0;             
+unsigned long ultimoRiegoMillis = 0; 
+bool estaRegando = false;         
+                    
 void setup() {
   // Configuración de Pines
   pinMode(BOMBA_PIN, OUTPUT);
