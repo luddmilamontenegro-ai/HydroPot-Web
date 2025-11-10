@@ -54,7 +54,6 @@ section { padding: 80px 0 80px 0; text-align: center; transition: opacity 0.5s e
     transform: scale(1.05);
 }
 
-
 /* ---------------------------------------------------- */
 /* CABECERA PRINCIPAL (HERO) - CUBRE TODA LA PANTALLA */
 /* ---------------------------------------------------- */
@@ -74,7 +73,7 @@ section { padding: 80px 0 80px 0; text-align: center; transition: opacity 0.5s e
 .hero p { font-size: 1.5em; margin-bottom: 40px; font-weight: 300; }
 
 /* ---------------------------------------------------- */
-/* ESTILOS DEL MENÚ DE BOTONES CENTRALIZADO */
+/* ESTILOS DEL MENÚ DE BOTONES CENTRALIZADO (Principal) */
 /* ---------------------------------------------------- */
 .main-menu {
     display: flex;
@@ -106,15 +105,65 @@ section { padding: 80px 0 80px 0; text-align: center; transition: opacity 0.5s e
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* ---------------------------------------------------- */
+/* ESTILOS DEL SUB-MENÚ (DENTRO DE PRODUCTO) */
+/* ---------------------------------------------------- */
+.sub-menu-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 30px 0;
+    border-bottom: 2px solid #E0E0E0;
+    padding-bottom: 10px;
+}
 
-/* ---------------------------------------------------- */
+.sub-menu-button {
+    background-color: transparent;
+    border: none;
+    color: #2E7D32;
+    padding: 10px 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    border-radius: 5px 5px 0 0;
+}
+
+.sub-menu-button:hover {
+    background-color: #E8F5E9; /* Fondo muy claro al pasar el mouse */
+}
+
+.sub-menu-button.active {
+    border-bottom: 3px solid #4CAF50; /* Indicador de pestaña activa */
+    color: #1B5E20;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+}
+
 /* OCULTAMIENTO DE CONTENIDO DINÁMICO (CRÍTICO) */
-/* ---------------------------------------------------- */
 .content-section {
     display: none; /* Oculta todas las secciones por defecto */
 }
 .content-section.active {
     display: block; /* Muestra solo la sección activa */
+}
+.sub-content {
+    display: none; /* Oculta los sub-contenidos por defecto */
+    text-align: center;
+    padding-top: 20px;
+}
+.sub-content.active {
+    display: block; /* Muestra solo el sub-contenido activo */
+}
+/* Estilo para los contenedores principales dentro de las pestañas */
+.content-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    margin-bottom: 30px;
 }
 
 /* OTROS ESTILOS DE SECCIÓN */
@@ -215,6 +264,9 @@ footer p { margin: 5px 0; }
     .objetivos-grid > div, .componentes-grid > div { width: 100%; }
     .hero h1 { font-size: 2.5em; }
     .menu-button { min-width: 80%; }
+    .sub-menu-tabs { flex-direction: column; }
+    .sub-menu-button { border-bottom: none; border-radius: 8px; }
+    .sub-menu-button.active { border: 2px solid #4CAF50; }
 }
     </style>
 </head>
@@ -237,22 +289,32 @@ footer p { margin: 5px 0; }
         </div>
     </header>
 
-    <!-- 1. SECCIÓN: PRODUCTO (Antes: Presentación) -->
+    <!-- 1. SECCIÓN: PRODUCTO (Ahora con Navegación por Pestañas) -->
     <section id="presentacion" class="section-gray content-section">
         <button class="back-button">← Volver al Menú</button>
         <div class="container">
-            <h2>📦 Producto: Funcionamiento y Objetivos</h2>
+            <h2>📦 Producto: HydroPot y sus Características</h2>
             
-            <!-- Funcionamiento -->
-            <div class="objetivos-grid">
-                <div>
+            <!-- NUEVO SUB-MENÚ DE PESTAÑAS -->
+            <div class="sub-menu-tabs">
+                <button class="sub-menu-button active" data-sub-target="funcionamiento">Funcionamiento General</button>
+                <button class="sub-menu-button" data-sub-target="objetivos">Objetivos y Metas</button>
+                <button class="sub-menu-button" data-sub-target="dirigido">Perfil y Competencia</button>
+            </div>
+
+            <!-- 1A. CONTENIDO: FUNCIONAMIENTO GENERAL -->
+            <div id="presentacion-funcionamiento" class="sub-content active">
+                <div class="content-card">
                     <h3>Funcionamiento de HydroPot</h3>
                     <p>Una maceta con un sistema de autorriego, es decir, riega a la planta de manera automática cuando esta lo necesita, ya que detecta en qué momento la planta requiere más agua mediante un sensor de humedad, mostrando en la pantalla el último riego que recibió, a través de un temporizador que indica las horas, minutos y segundos ($00:00:00$).</p>
                     <p>Al terminar de regar, las luces LED UV, que están dentro de un tubo de manguera transparente, la cual rodea la planta, se encenderán para poder fortalecer su crecimiento.</p>
                     <p>La maceta consta de un compartimento (el cual se puede poner y sacar las veces que desee) para poder guardar los componentes electrónicos utilizados y de una pantalla protegida por una caja, la cual puedes sacar y poner con facilidad mediante un imán.</p>
                 </div>
-                
-                <div>
+            </div>
+            
+            <!-- 1B. CONTENIDO: OBJETIVOS Y METAS -->
+            <div id="presentacion-objetivos" class="sub-content">
+                <div class="content-card">
                     <h3>Objetivos y Metas</h3>
                     <p>El objetivo principal es **automatizar y simplificar el cuidado de las plantas** a través de nuestro sistema. Gracias a esta tecnología, se optimiza el uso del agua, se mejora la salud de las plantas y organiza el tiempo del usuario, facilitando el mantenimiento a aquellos que no tienen suficiente tiempo para estar pendiente del cuidado.</p>
                     <h4>Metas:</h4>
@@ -264,28 +326,30 @@ footer p { margin: 5px 0; }
                 </div>
             </div>
 
-            <!-- Dirigido a -->
-            <h3>¿A Quiénes Está Dirigido?</h3>
-            <p class="dirigido">Está dirigido principalmente a adultos mayores con dificultades de movilidad o personas ocupadas que no tienen el tiempo para estar pendientes al cuidado que necesita la planta, y gracias a este producto pueden relajarse y despreocuparse.</p>
-            
-            <div class="objetivos-grid">
-                <div>
-                    <h4>Ejemplo de Perfil de Usuario</h4>
-                    <p>Mujer de 40 años, con trabajo de horario completo, se encarga de cuidar a sus 2 hijos haciéndoles la comida, lavando la ropa y más tareas del hogar. No tiene tanto tiempo para poder encargarse del cuidado de sus plantas, pues esta maceta la ayudaría mucho a poder tener sus plantas sanas y fuertes y tener una linda decoración en su casa.</p>
-                </div>
+            <!-- 1C. CONTENIDO: DIRIGIDO A / COMPETENCIA -->
+            <div id="presentacion-dirigido" class="sub-content">
+                <h3 style="text-align: center;">¿A Quiénes Está Dirigido?</h3>
+                <p class="dirigido">Está dirigido principalmente a adultos mayores con dificultades de movilidad o personas ocupadas que no tienen el tiempo para estar pendientes al cuidado que necesita la planta, y gracias a este producto pueden relajarse y despreocuparse.</p>
                 
-                <div>
-                    <h4>Diferencia de la Competencia</h4>
-                    <p>Esta maceta se diferencia de la competencia, ya que, además de incluir un sistema de autorriego como las demás, esta cuenta con luces ultra UV para el crecimiento y una pantalla con temporizador del último riego.</p>
-                    <p>Además, tanto la maceta como la caja de la pantalla están hechas de filamento de impresión 3D, siendo un diseño único y extravagante, distinto a los que se suelen ver.</p>
+                <div class="objetivos-grid">
+                    <div>
+                        <h4>Ejemplo de Perfil de Usuario</h4>
+                        <p>Mujer de 40 años, con trabajo de horario completo, se encarga de cuidar a sus 2 hijos haciéndoles la comida, lavando la ropa y más tareas del hogar. No tiene tanto tiempo para poder encargarse del cuidado de sus plantas, pues esta maceta la ayudaría mucho a poder tener sus plantas sanas y fuertes y tener una linda decoración en su casa.</p>
+                    </div>
+                    
+                    <div>
+                        <h4>Diferencia de la Competencia</h4>
+                        <p>Esta maceta se diferencia de la competencia, ya que, además de incluir un sistema de autorriego como las demás, esta cuenta con luces ultra UV para el crecimiento y una pantalla con temporizador del último riego.</p>
+                        <p>Además, tanto la maceta como la caja de la pantalla están hechas de filamento de impresión 3D, siendo un diseño único y extravagante, distinto a los que se suelen ver.</p>
+                    </div>
                 </div>
             </div>
-
+            
             <p class="integrantes">Materia: Proyecto de Producción | Curso: 5to "A" | Integrantes: Pita, Lopez, Fernandez, Montenegro, Dzurjovcin y Nava</p>
         </div>
     </section>
 
-    <!-- 2. SECCIÓN: MODELOS 3D BLENDER (Antes: Render y Modelado 3D) -->
+    <!-- 2. SECCIÓN: MODELOS 3D BLENDER -->
     <section id="render-3d" class="section-white content-section">
         <button class="back-button">← Volver al Menú</button>
         <div class="container">
@@ -357,7 +421,7 @@ footer p { margin: 5px 0; }
         </div>
     </section>
 
-    <!-- 3. EXPLICACIÓN DE LA ELECTRÓNICA Y ROBÓTICA (Sin cambios en contenido) -->
+    <!-- 3. EXPLICACIÓN DE LA ELECTRÓNICA Y ROBÓTICA -->
     <section id="electronica" class="section-gray content-section">
         <button class="back-button">← Volver al Menú</button>
         <div class="container">
@@ -368,11 +432,11 @@ footer p { margin: 5px 0; }
                 <div>
                     <h3>Componentes Clave:</h3>
                     <ul>
-                        <li>**Arduino Nano:** El cerebro que ejecuta el programa informático.</li>
+                        <li>Arduino Nano: El cerebro que ejecuta el programa informático.</li>
                         <li>Sensor de Humedad: Los "ojos" del sistema. Mide la humedad y le indica al Arduino cuándo regar.</li>
                         <li>Bomba de Agua: El "músculo". Riega solo cuando el sensor lo indica.</li>
                         <li>Tiras LED (Ultra UV): Proporcionan la luz solar necesaria para un crecimiento fuerte.</li>
-                        <li>Pantalla:Muestra el último riego con un temporizador (00:00:00).</li>
+                        <li>Pantalla: Muestra el último riego con un temporizador (00:00:00).</li>
                     </ul>
                 </div>
                 
@@ -389,7 +453,7 @@ footer p { margin: 5px 0; }
         </div>
     </section>
 
-    <!-- 4. PANTALLA Y PROGRAMACIÓN (Sin cambios en contenido) -->
+    <!-- 4. PANTALLA Y PROGRAMACIÓN -->
     <section id="programacion" class="section-white content-section">
         <button class="back-button">← Volver al Menú</button>
         <div class="container">
@@ -443,76 +507,200 @@ void setup() {
 void loop() {
   valorHumedad = analogRead(SENSOR_HUMEDAD_PIN); // Lee el nivel de humedad
 
-  // 1. Lógica de Riego (Umbral de humedad)
-  // Si la humedad cae por debajo de 630 (Tierra seca) y no estamos ya regando, iniciar.
-  if (valorHumedad &gt; 630 &amp;&amp; !estaRegando) {
-    iniciarRiego();
-  }
+#include <Wire.h>
 
-  // 2. Control de LEDs (Indicadores visuales)
-  if (valorHumedad &gt; 600) { // Muy seco (umbral alto)
-    digitalWrite(LED_ROJO, HIGH);
-    // Nota: Los LEDs Verde y Amarillo se controlan dentro de iniciarRiego/mostrarTiempo
-  } else {
-    digitalWrite(LED_ROJO, LOW);
-  }
+#include <LiquidCrystal_I2C.h>
 
-  // 3. Mostrar estado o temporizador
-  mostrarTiempo(millis());
+
+LiquidCrystal_I2C _lcd(0x27, 16, 2);
+
+const int _sensor_humedad = A0;
+
+const int _pin_bomba = 8;
+
+const int _led_verde = 2;
+
+const int _pinBuzzer = 7;
+
+int _valor_humedad = 0;
+
+unsigned long _ultimo_riego = 0;
+
+bool _esta_regando = false;
+
+
+void setup() {
+
+  Serial.begin(9600);
+
   
+
+  pinMode(_pin_bomba, OUTPUT);
+
+  pinMode(_led_verde, OUTPUT);
+
+  pinMode(_pinBuzzer, OUTPUT);
+
+
+  digitalWrite(_pin_bomba, LOW);
+
+  digitalWrite(_led_verde, LOW);
+
+
+  _lcd.init();
+
+  _lcd.backlight();
+
+  _lcd.setCursor(0, 0);
+
+  _lcd.print("Maceta Autorriego");
+
+  Serial.println("Maceta autorriego");
+
+  delay(2000);
+
+  _lcd.clear();
+
+}
+
+
+void loop() {
+
+  _valor_humedad = analogRead(_sensor_humedad);
+
+  unsigned long _tiempo_actual = millis();
+
+  Serial.println(_valor_humedad);
+
+  
+
+  if (_valor_humedad > 630 && !_esta_regando) {
+
+    _iniciar_riego();
+
+  }
+
+
+  _mostrar_tiempo(_tiempo_actual);
+
   delay(1000);
+
 }
 
-// Función que ejecuta el ciclo de riego
-void iniciarRiego() {
-  estaRegando = true;
 
-  // Estado: REGANDO
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("Regando...");
-  digitalWrite(LED_ROJO, LOW); // Apaga el LED rojo
-  
-  // Activa la bomba por 5 segundos
-  digitalWrite(BOMBA_PIN, HIGH);
-  delay(5000); // 5 segundos de riego
-  digitalWrite(BOMBA_PIN, LOW);
+void _iniciar_riego() {
 
-  // Activa las luces Ultra UV y guarda el tiempo
-  digitalWrite(LED_UV_PIN, HIGH); // Las luces UV se encienden al terminar el riego
-  ultimoRiegoMillis = millis(); // Guarda el momento exacto
-  
-  estaRegando = false;
+  _esta_regando = true;
+
+
+  _lcd.clear();
+
+  _lcd.setCursor(0, 0);
+
+  _lcd.print("Regando...");
+
+  Serial.println("Regando....");
+
+  fnSonar();
+
+
+  digitalWrite(_pin_bomba, HIGH);
+
+  delay(5000);
+
+  digitalWrite(_pin_bomba, LOW);
+
+
+  digitalWrite(_led_verde, HIGH);
+
+
+  _ultimo_riego = millis();
+
+  _esta_regando = false;
+
 }
 
-// Función que calcula y muestra el tiempo desde el último riego
-void mostrarTiempo(unsigned long tiempoActual) {
-  if (ultimoRiegoMillis == 0 || estaRegando) return;
 
-  unsigned long tiempoPasado = (tiempoActual - ultimoRiegoMillis) / 1000; // Segundos
-  int horas = tiempoPasado / 3600;
-  int minutos = (tiempoPasado % 3600) / 60;
-  int segundos = tiempoPasado % 60;
+void _mostrar_tiempo(unsigned long _tiempo_actual) {
 
-  // Muestra el temporizador en el LCD
-  lcd.setCursor(0, 0);
-  lcd.print("Ult. riego:");
+  if (_ultimo_riego == 0) return;
+
+
+  unsigned long _tiempo_pasado = (_tiempo_actual - _ultimo_riego) / 1000;
+
+  int _horas = _tiempo_pasado / 3600;
+
+  int _minutos = (_tiempo_pasado % 3600) / 60;
+
+  int _segundos = _tiempo_pasado % 60;
+
+
+  _lcd.clear();
+
+  _lcd.setCursor(0, 0);
+
+  _lcd.print("Ult. riego:");
+
+  Serial.print("Ult. riego:");
+
   
-  lcd.setCursor(0, 1);
-  // Formatea HH:MM:SS (con ceros iniciales)
-  if (horas < 10) lcd.print("0"); lcd.print(horas); lcd.print(":");
-  if (minutos < 10) lcd.print("0"); lcd.print(minutos); lcd.print(":");
-  if (segundos < 10) lcd.print("0"); lcd.print(segundos);
+
+  _lcd.setCursor(0, 1);
+
+  if (_horas < 10) _lcd.print("0");
+
+  _lcd.print(_horas);
+
+  _lcd.print(":");
+
+  Serial.print(_horas); Serial.print(":");
+
+  
+
+  if (_minutos < 10) _lcd.print("0");
+
+  _lcd.print(_minutos);
+
+  _lcd.print(":");
+
+  Serial.print(_minutos); Serial.print(":");
+
+  
+
+  if (_segundos < 10) _lcd.print("0");
+
+  _lcd.print(_segundos);
+
+  Serial.println(_segundos);
+
+
+
 }
-// ----------------------------------------------------
-                </pre>
-            </div>
+
+
+void fnSonar() {
+
+  tone(_pinBuzzer, 440);
+
+  delay(1000);
+
+  noTone(_pinBuzzer);
+
+}
+
+
+
+CONEXIÓN PROGRAMACIÓN CON ELECTRÓNICA: 
+
+
+
+SIMULACIÓN EN WOKWI: https://wokwi.com/projects/444154758107841537 
             
             <p class="diferencia">Diferencia de la Competencia: Nuestro temporizador e indicador de luces facilitan al usuario la detección de fallos técnicos y el monitoreo del estado de la planta.</p>
         </div>
     </section>
 
-    <!-- 5. MANUAL DE USO (Contenido Actualizado) -->
+    <!-- 5. MANUAL DE USO -->
     <section id="manual" class="section-gray content-section">
         <button class="back-button">← Volver al Menú</button>
         <div class="container">
@@ -570,25 +758,55 @@ void mostrarTiempo(unsigned long tiempoActual) {
             const contentSections = document.querySelectorAll('.content-section');
             const heroSection = document.querySelector('.hero');
             const backButtons = document.querySelectorAll('.back-button'); 
+            
+            // Elementos del nuevo sub-menú de Producto
+            const subMenuButtons = document.querySelectorAll('#presentacion .sub-menu-button');
+            const subContents = document.querySelectorAll('#presentacion .sub-content');
 
-            // 1. Función para ocultar todas las secciones de contenido
+            // 1. Función para ocultar todas las secciones de contenido (Menú Principal)
             const hideAllContent = () => {
                 contentSections.forEach(section => {
                     section.classList.remove('active');
                 });
             };
-
+            
             // 2. Función para mostrar la sección principal (Hero)
             const showHero = (show) => {
                 heroSection.style.display = show ? 'flex' : 'none';
             };
 
-            // 3. Inicialización: Ocultar todo el contenido al inicio
-            hideAllContent();
-            // Asegurarse de que el Hero esté visible inicialmente
-            showHero(true);
+            // 3. Función para manejar las pestañas del sub-menú
+            const handleSubMenuClick = (targetId) => {
+                // Ocultar todos los sub-contenidos
+                subContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Remover la clase 'active' de todos los botones del sub-menú
+                subMenuButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+
+                // Mostrar el contenido objetivo
+                const targetContent = document.getElementById(`presentacion-${targetId}`);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+
+                // Activar el botón objetivo
+                const targetButton = document.querySelector(`.sub-menu-button[data-sub-target="${targetId}"]`);
+                if (targetButton) {
+                    targetButton.classList.add('active');
+                }
+            };
             
-            // 4. Lógica de clic en los botones del menú (navegación hacia adelante)
+            // 4. Inicialización: Ocultar todo el contenido al inicio
+            hideAllContent();
+            showHero(true);
+            // Asegurar que el sub-contenido inicial esté visible (Funcionamiento General)
+            handleSubMenuClick('funcionamiento'); // Llama a la función al inicio
+
+            // 5. Lógica de clic en los botones del menú (navegación hacia adelante)
             menuButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
@@ -612,7 +830,7 @@ void mostrarTiempo(unsigned long tiempoActual) {
                 });
             });
 
-            // 5. Lógica de clic en los botones "Volver al Menú" (navegación hacia atrás)
+            // 6. Lógica de clic en los botones "Volver al Menú" (navegación hacia atrás)
             backButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     // 1. Oculta la sección actual
@@ -625,8 +843,15 @@ void mostrarTiempo(unsigned long tiempoActual) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             });
+
+            // 7. Lógica de clic para el SUB-MENÚ
+            subMenuButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const targetId = button.getAttribute('data-sub-target');
+                    handleSubMenuClick(targetId);
+                });
+            });
         });
     </script>
 </body>
 </html>
-
